@@ -21,7 +21,8 @@ async function submitForm(ev){
         }
         let serverResponseData=await sendDataToServer(data,'http://localhost:3030/users/register')
         localStorage.setItem('accessToken',serverResponseData.accessToken);
-        localStorage.setItem('userId',serverResponseData._id)
+        localStorage.setItem('userId',serverResponseData._id);
+        localStorage.setItem('email',serverResponseData.email);
         console.log(serverResponseData)
         loadPageData();
     }catch(err){
