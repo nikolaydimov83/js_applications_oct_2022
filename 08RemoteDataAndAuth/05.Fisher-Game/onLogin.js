@@ -1,4 +1,6 @@
-import { errorHandler, getDataFromServer, loadFormData, sendDataToServer } from "./utils.js";
+import { errorHandler, getDataFromServer, sendDataToServer } from "./utils.js";
+import{loadFormData} from './handleFormData.js'
+
 import { loadPageData } from "./onLoad.js";
 export function onLogin(){
     document.getElementById('register-view').style.display='none';

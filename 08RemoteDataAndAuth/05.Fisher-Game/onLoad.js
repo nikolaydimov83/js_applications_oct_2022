@@ -1,5 +1,5 @@
-import {createElement,errorHandler,getDataFromServer,deleteDataFromServer,editDataToServer, loadInputValuesOutsideForm} from "./utils.js";
-
+import {createElement,errorHandler,getDataFromServer,deleteDataFromServer,editDataToServer, } from "./utils.js";
+import {loadInputValuesOutsideForm} from './handleFormData.js'
 export async function loadPageData(){
     let isLogged;
     if (localStorage.getItem('accessToken')){
@@ -85,10 +85,10 @@ function createFishCatch(fishCatch){
     }
     })
     let deleteBtn=buttons[1];
-    deleteBtn.addEventListener('click',(ev)=>{
+    deleteBtn.addEventListener('click',async (ev)=>{
         try{
-            deleteDataFromServer(ev.target[`entry-id`],`http://localhost:3030/data/catches`,localStorage.getItem('accessToken'));
-        loadPageData()
+          await  deleteDataFromServer(ev.target[`entry-id`],`http://localhost:3030/data/catches`,localStorage.getItem('accessToken'));
+         loadPageData()
         }catch(err){
             errorHandler(err)
         }
