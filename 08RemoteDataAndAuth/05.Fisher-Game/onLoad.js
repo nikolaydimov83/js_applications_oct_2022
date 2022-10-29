@@ -31,9 +31,11 @@ function displayHeader(isLogged){
     if (isLogged){
         document.getElementById('guest').style.display='none'
         document.getElementById('user').style.display='inline-block'
+        document.querySelector('span').textContent=localStorage.getItem('email')
     }else{
         document.getElementById('guest').style.display='inline-block'
         document.getElementById('user').style.display='none'
+        document.querySelector('span').textContent='guest'
     }
     //console.log(await getDataFromServer()
 }
