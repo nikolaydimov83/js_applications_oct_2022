@@ -4,7 +4,10 @@ const allowedTypes={
     'species':'string',
     'location':'string',
     'bait':'string',
-    'captureTime':'number'
+    'email':'string',
+    'password':'string',
+    'captureTime':'number',
+    'rePass':'string'
 }
 
 export async function sendDataToServer(data,url,token){
