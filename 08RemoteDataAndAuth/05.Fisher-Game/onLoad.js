@@ -1,4 +1,4 @@
-import {createElement,errorHandler,getDataFromServer,deleteDataFromServer,editDataToServer,sendDataToServer, loadFormData} from "./utils.js";
+import {createElement,errorHandler,getDataFromServer,deleteDataFromServer,editDataToServer, loadInputValuesOutsideForm} from "./utils.js";
 
 export async function loadPageData(){
     let isLogged;
@@ -16,11 +16,16 @@ export async function loadPageData(){
     document.getElementById('home-view').style.display='block';
 
     document.getElementById('catches').replaceChildren();
+    try{
     let data =await getDataFromServer('http://localhost:3030/data/catches');
     console.log(data)
     data.forEach(element => {
         createFishCatch(element,isLogged)
     });
+    }catch(err){
+        errorHandler(err)
+    }
+
     }
 function displayHeader(isLogged){
     if (isLogged){
@@ -67,18 +72,26 @@ function createFishCatch(fishCatch){
     let buttons=divCatch.querySelectorAll('button');
     let updateBtn=buttons[0];
     updateBtn.addEventListener('click',(ev)=>{
-        let data={}
-        Array.from(ev.target.parentElement.children)
-            .filter((child)=>child.nodeName==='INPUT')
-            .forEach((child)=>{
-                data[child.className]=child.value
-            })
+        try{
+        let data=loadInputValuesOutsideForm(ev.target.parentElement)
             
         let token=localStorage.getItem('accessToken');
-        editDataToServer(data,'http://localhost:3030/data/catches)',ev.target['entry-id'],localStorage.getItem('accessToken'));
+        editDataToServer(data,'http://localhost:3030/data/catches',ev.target['entry-id'],localStorage.getItem('accessToken'));
         loadPageData()
+    }catch(err){
+        errorHandler(err)
+    }
     })
     let deleteBtn=buttons[1];
+    deleteBtn.addEventListener('click',(ev)=>{
+        try{
+            deleteDataFromServer(ev.target[`entry-id`],`http://localhost:3030/data/catches`,localStorage.getItem('accessToken'));
+        loadPageData()
+        }catch(err){
+            errorHandler(err)
+        }
+        
+    })
 
 document.getElementById('catches').appendChild(divCatch)
 }

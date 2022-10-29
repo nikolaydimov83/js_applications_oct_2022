@@ -1,3 +1,12 @@
+const allowedTypes={
+    "angler":'string',
+    'weight':'number',
+    'species':'string',
+    'location':'string',
+    'bait':'string',
+    'captureTime':'number'
+}
+
 export async function sendDataToServer(data,url,token){
     let dataStringified=JSON.stringify(data);
     try{
@@ -31,18 +40,7 @@ return responseData;
 
 }
 
-async function sendUpdatedCatchDataToServer(dataToUpdt,requestorElement){
-    let response=await fetch(`http://localhost:3030/data/catches/${requestorElement['data-id']}`,{
-        method:'put',
-        headers:{'Content-type':'application/json',
-        'X-Authorization':sessionStorage.getItem('accessToken')},
-        body:dataToUpdt
-    })
-        //To DO CHECK PROPER INPUT
-       let data =await response.json();
-       getAllCatchesFromServer()
-       
-    }
+
 
 export async function editDataToServer(data,url,id,token){
     let newUrl=url+'/'+id;
@@ -66,14 +64,16 @@ export async function editDataToServer(data,url,id,token){
 
 }
 
-export async function deleteDataFromServer(id,url){
+export async function deleteDataFromServer(id,url,token){
   let newUrl=url+'/'+id
     try{
+        let headersContent={'content-type':'application/json'}
+        if (token){
+            headersContent['X-Authorization']=token
+        }
         let response=await fetch(newUrl,{
         method:'delete',
-        headers:{
-            'content-type':'application/json'
-        }
+        headers:headersContent
     });
     await checkResponse(response)
     let responseData=await response.json();
@@ -85,9 +85,17 @@ export async function deleteDataFromServer(id,url){
 
 }
 
-export async function getDataFromServer(url){
+export async function getDataFromServer(url,headers){
     try{
-        let response=await fetch(url);
+        let response
+        if (headers){
+            response=await fetch(url,{
+                headers:headers
+            });
+        }else{
+            response=await fetch(url);
+        }
+
         await checkResponse(response);
         let data=await response.json()
         return data
@@ -99,6 +107,7 @@ export async function getDataFromServer(url){
 
 export function errorHandler(err){
     console.log(err.message);
+    
 }
 async function checkResponse(response){
     if(!response.ok){
@@ -139,6 +148,37 @@ export function loadFormData(form){
     for (const [key,value] of formData) {
         formDataObject[key]=value
     } 
+    Object.entries(formDataObject).forEach((entry)=>{
+        checkInputCorrect(entry[1],allowedTypes,entry[0])
+    })
     return formDataObject
 
+}
+
+export function loadInputValuesOutsideForm(inputsWrapper){
+    let data={}
+    Array.from(inputsWrapper.children)
+        .filter((child)=>child.nodeName==='INPUT')
+        .forEach((child)=>{
+                checkInputCorrect(child.value,allowedTypes,child.className);
+                data[child.className]=child.value; 
+        })
+
+return data    
+}
+ function checkInputCorrect(value,allowedTypes,type){
+
+   let action={
+    'number':()=>{
+        if ((isNaN(value)||value==='')){
+        throw new Error('Wrong input')
+    }  
+},
+    'string':()=>{
+        if ((value==='')){
+            throw new Error('Wrong input')
+        }
+    }
+   }   
+    action[allowedTypes[type]]()
 }

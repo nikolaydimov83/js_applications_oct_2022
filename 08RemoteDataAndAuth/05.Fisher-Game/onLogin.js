@@ -28,7 +28,7 @@ async function submitForm(ev){
 }
 
 export async function onLogout(){
-    await getDataFromServer('http://localhost:3030/users/logout')
+    await getDataFromServer('http://localhost:3030/users/logout',localStorage.getItem('accessToken'))
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userId');
     loadPageData()
