@@ -1,5 +1,6 @@
 import { loadPageData } from "./onLoad.js";
-import { loadFormData, sendDataToServer, errorHandler } from "./utils.js";
+import { sendDataToServer, errorHandler } from "./utils.js";
+import {loadFormData} from './handleFormData.js';
 
 export async function addNewCatch(ev){
     ev.preventDefault()

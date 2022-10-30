@@ -1,4 +1,5 @@
-import { errorHandler, loadFormData, sendDataToServer } from "./utils.js";
+import { errorHandler, sendDataToServer } from "./utils.js";
+import{loadFormData} from './handleFormData.js'
 import { loadPageData } from "./onLoad.js";
 export function onRegister(){
     document.getElementById('register-view').style.display='block';
