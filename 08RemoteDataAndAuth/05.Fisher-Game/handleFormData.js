@@ -36,8 +36,8 @@ return data
 
 export function emptyFormData(inputsWrapper){
     
-    Array.from(inputsWrapper.children)
-        .filter((child)=>child.nodeName==='INPUT')
+    Array.from(inputsWrapper.getElementsByTagName('input'))
+        
         .forEach((child)=>{
             if (child.type==='text'||child.type==='number')
                 child.value='';
