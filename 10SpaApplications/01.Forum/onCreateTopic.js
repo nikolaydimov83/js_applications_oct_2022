@@ -35,7 +35,7 @@ main.appendChild(homeViewTitles);
                                         createElement('span',[],[],{},`${responseData['username']}`))))))));
             document.querySelector('.topic-title').appendChild(topicModule)
             let commentsA=topicModule.querySelector('a');
-            commentsA.addEventListener('click',loadCommnetPage)
+            commentsA.addEventListener('click',(x)=>loadCommnetPage(id))
         })
     }catch(err){
         errorHandler(err)
