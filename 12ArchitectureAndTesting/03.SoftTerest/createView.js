@@ -17,6 +17,7 @@ export async function createSubmit(ev){
     ev.preventDefault();
     try{
         let formData=loadFormData(createNewIdeaForm)
+        formData['img']=formData.imageURL
         let serverData = await sendDataToServer(formData,'data/ideas',JSON.parse(localStorage.getItem('userData')).accessToken);
         console.log(serverData);
         emptyFormData(createNewIdeaForm)

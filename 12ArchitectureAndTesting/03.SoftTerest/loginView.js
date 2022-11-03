@@ -40,6 +40,8 @@ export async function gotoLogout(innerCtx){
     localStorage.removeItem('userData')
     innerCtx.goTo('')
     }catch(err){
-       errorHandler(err)
+        localStorage.removeItem('userData');
+        innerCtx.goTo('');
+        errorHandler(err)
     }
 }
