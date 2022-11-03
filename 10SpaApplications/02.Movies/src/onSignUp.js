@@ -13,6 +13,7 @@ try{
     localStorage.setItem('accessToken',serverResponseData.accessToken);
     localStorage.setItem('userId',serverResponseData._id);
     localStorage.setItem('email',serverResponseData.email);
+    emptyFormData(ev.target)
     onLoad();
 }catch(err){
     errorHandler(err)
