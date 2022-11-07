@@ -9,7 +9,8 @@ const allowedTypes={
     'email':'email',
     'password':'password',
     'year':'year',
-    'repeatPassword':'password'
+    'repeatPassword':'password',
+    'material':'material'
 }
 export function loadFormData(form){
     
@@ -98,7 +99,8 @@ export function emptyFormData(inputsWrapper){
         if ((value===''||value.length<=10)){
             throw new Error('Wrong input')
         }
-    }
+    },
+    'material':()=>console.log('material is optional')
 
    }   
     action[allowedTypes[type]]()
