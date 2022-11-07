@@ -17,7 +17,7 @@ let templateCatalog=(data)=>html`<div class="row space-top">
                         <p>Price: <span>${furniture.price}$</span></p>
                     </footer>
                     <div>
-                        <a href="#" class="btn btn-info">Details</a>
+                        <a href="/catalog/${furniture._id}" class="btn btn-info">Details</a>
                     </div>
             </div>
         </div>
@@ -25,9 +25,14 @@ let templateCatalog=(data)=>html`<div class="row space-top">
 </div>`)}`
 
 export async function showCatalog(ctx){
-let data=await getDataFromServer('data/catalog')
-console.log(data)
+try{
+    let data=await getDataFromServer('data/catalog')
+    console.log(data)
     ctx.render(templateCatalog(data))
+}catch(err){
+    errorHandler(err)
+}
+
 
 }
 

@@ -1,13 +1,14 @@
 
 const allowedTypes={
-    "title":'title',
+    "make":'make',
+    "model":'make',
     'username':'string',
     'description':'description',
-    'imageURL':'img',
-    'bait':'string',
+    'img':'img',
+    'price':'price',
     'email':'email',
     'password':'password',
-    'captureTime':'number',
+    'year':'year',
     'repeatPassword':'password'
 }
 export function loadFormData(form){
@@ -57,10 +58,15 @@ export function emptyFormData(inputsWrapper){
  function checkInputCorrect(value,allowedTypes,type){
 
    let action={
-    'number':()=>{
-        if ((isNaN(value)||value==='')){
+    'year':()=>{
+        if ((isNaN(value)||value===''||value<1950||value>2050)){
         throw new Error('Wrong input')
     }  
+},
+'price':()=>{
+    if ((isNaN(value)||value===''||value<=0)){
+    throw new Error('Wrong input')
+}  
 },
     'email':()=>{
         if ((value===''||value.length<3)){
@@ -78,18 +84,18 @@ export function emptyFormData(inputsWrapper){
             throw new Error('Wrong input')
         }
     },
-    'title':()=>{
-        if ((value===''||value.length<6)){
+    'make':()=>{
+        if ((value===''||value.length<4)){
             throw new Error('Wrong input')
         }
     },
     'img':()=>{
-        if ((value===''||value.length<5)){
+        if ((value==='')){
             throw new Error('Wrong input')
         }
     },
     'description':()=>{
-        if ((value===''||value.length<10)){
+        if ((value===''||value.length<=10)){
             throw new Error('Wrong input')
         }
     }
