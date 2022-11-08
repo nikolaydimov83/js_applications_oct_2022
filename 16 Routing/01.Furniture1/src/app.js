@@ -6,16 +6,22 @@ import { showDetails } from './views/details.js';
 import { showEditFurniture } from './views/edit.js';
 
 import { showLogin } from './views/login.js';
+import { showMyFurniture } from './views/myFurniture.js';
+import { isLogged, renderNav } from './views/navigation.js';
+import { showRegister } from './views/register.js';
 
 let container=document.querySelector('.container');
 
-
+renderNav();
 function render(templateResult){
     litRender(templateResult,container)
 }
 
 function decorateCtx(ctx,next){
 ctx.render=render
+ctx.renderNav=renderNav
+ctx.showCatalog=showCatalog
+ctx.isLogged=isLogged
 next();
 }
 
@@ -24,6 +30,8 @@ page('/login',showLogin);
 page('/catalog',showCatalog);
 page('/catalog/:productId',showDetails);
 page(`/create`,showCreateFurniture);
-page(`/edit`,showEditFurniture)
+page(`/edit`,showEditFurniture);
+page(`/my-furniture`,showMyFurniture);
+page(`/register`,showRegister);
 
 page.start();

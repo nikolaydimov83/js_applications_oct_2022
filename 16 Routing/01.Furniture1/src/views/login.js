@@ -34,6 +34,7 @@ async function loginSubmit(ev){
         let returnedData=await sendDataToServer(data,`users/login`);
         sessionStorage.setItem('userData',JSON.stringify(returnedData));
         ev.target.reset();
+        ctx.renderNav()
         ctx.page.redirect('/catalog')
 
     }catch(err){

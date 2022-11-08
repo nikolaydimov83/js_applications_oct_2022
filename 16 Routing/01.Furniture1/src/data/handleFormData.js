@@ -9,7 +9,7 @@ const allowedTypes={
     'email':'email',
     'password':'password',
     'year':'year',
-    'repeatPassword':'password',
+    'rePass':'password',
     'material':'material'
 }
 export function loadFormData(form){
