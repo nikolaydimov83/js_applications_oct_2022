@@ -15,26 +15,50 @@ const allowedTypes={
 export function loadFormData(form){
     
     let formDataObject={}
+    let wrongFieldsObject={}
+    let wrongData=false
     let formData=new FormData(form)
     for (const [key,value] of formData) {
         formDataObject[key]=value
     } 
     Object.entries(formDataObject).forEach((entry)=>{
-        checkInputCorrect(entry[1],allowedTypes,entry[0])
+        try{
+            checkInputCorrect(entry[1],allowedTypes,entry[0])
+            wrongFieldsObject[entry[0]]=false
+        }catch(err){
+            wrongFieldsObject[entry[0]]=true
+            wrongData=true
+        }
+        
     })
+    if (wrongData){
+        wrongFieldsObject.message='Invalid input';
+        throw wrongFieldsObject
+    }
     return formDataObject
 
 }
 
 export function loadInputValuesOutsideForm(inputsWrapper){
     let data={}
+    let wrongFieldsObject={}
+    let wrongData=false
     Array.from(inputsWrapper.children)
         .filter((child)=>child.nodeName==='INPUT')
         .forEach((child)=>{
-                checkInputCorrect(child.value,allowedTypes,child.className);
-                data[child.className]=child.value; 
-        })
+            try{
+                checkInputCorrect(child.value,allowedTypes,child.name);
+                data[child.name]=child.value; 
+            }catch(err){
+                wrongFieldsObject[child.name]=true
+                wrongData=true
+            }
 
+        })
+        if (wrongData){
+            wrongFieldsObject.message='Invalid input';
+            throw wrongFieldsObject
+        }
 return data    
 }
 

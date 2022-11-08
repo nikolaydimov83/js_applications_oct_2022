@@ -3,6 +3,7 @@ import page from '../node_modules/page/page.mjs';
 import { showCatalog } from './views/catalog.js';
 import { showCreateFurniture } from './views/create.js';
 import { showDetails } from './views/details.js';
+import { showEditFurniture } from './views/edit.js';
 
 import { showLogin } from './views/login.js';
 
@@ -23,5 +24,6 @@ page('/login',showLogin);
 page('/catalog',showCatalog);
 page('/catalog/:productId',showDetails);
 page(`/create`,showCreateFurniture);
+page(`/edit`,showEditFurniture)
 
 page.start();
