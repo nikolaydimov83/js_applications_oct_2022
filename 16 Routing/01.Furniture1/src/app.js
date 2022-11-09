@@ -27,6 +27,7 @@ next();
 
 page(decorateCtx);
 page('/login',showLogin);
+page('/',showCatalog)
 page('/catalog',showCatalog);
 page('/catalog/:productId',showDetails);
 page(`/create`,showCreateFurniture);
