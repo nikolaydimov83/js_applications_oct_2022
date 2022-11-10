@@ -13,6 +13,8 @@ import { showRegister } from './views/register.js';
 let container=document.querySelector('.container');
 
 renderNav();
+
+
 function render(templateResult){
     litRender(templateResult,container)
 }
