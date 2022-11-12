@@ -1,9 +1,20 @@
 let baseUrl='http://localhost:3030/'
-
+let myId=()=>{
+    if(JSON.parse(sessionStorage.getItem('userData'))){
+        return JSON.parse(sessionStorage.getItem('userData'))._id
+    }
+    
+}
 let endPoints={
     token:()=>{
         if(JSON.parse(sessionStorage.getItem('userData'))){
             return JSON.parse(sessionStorage.getItem('userData')).accessToken
+        }
+        
+    },
+    myId:()=>{
+        if(JSON.parse(sessionStorage.getItem('userData'))){
+            return JSON.parse(sessionStorage.getItem('userData'))._id
         }
         
     },
@@ -13,7 +24,8 @@ let endPoints={
     browse:`data/teams`,
     members:`data/members?where=status%3D%22member%22`,
     memberStatus:`data/members`,
-    createTeam:`data/teams`
+    createTeam:`data/teams`,
+    allMyTeams:()=>`data/members?where=_ownerId%3D%22${myId()}%22%20AND%20status%3D%22member%22&load=team%3DteamId%3Ateams`
 }
 export async function sendDataToServer(data,url,token){
     let dataStringified=JSON.stringify(data);
@@ -155,7 +167,7 @@ export function errorHandler(err){
 async function checkResponse(response){
     if(!response.ok){
         let error=await response.json();
-        throw new Error(error);
+        throw error
     }
 }
 

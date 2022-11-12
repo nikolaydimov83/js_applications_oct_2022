@@ -7,7 +7,7 @@ let navigationTemplate=()=>html`<a href="/" class="site-logo">Team Manager</a>
     <a href="/browse" class="action">Browse Teams</a>
     <a style=${isLogged()?'display:none':''} href="/login" class="action">Login</a>
     <a style=${isLogged()?'display:none':''} href="/register" class="action">Register</a>
-    <a style=${isLogged()?'':'display:none'} href="myTeams" class="action">My Teams</a>
+    <a style=${isLogged()?'':'display:none'} href="/myTeams" class="action">My Teams</a>
     <a @click=${logoutUser} style=${isLogged()?'':'display:none'} class="action">Logout</a>
 </nav>`
 
@@ -29,9 +29,12 @@ async function logoutUser(ev){
         await getDataFromServer(endPoints.logout,JSON.parse(sessionStorage.getItem("userData")).accessToken)
         sessionStorage.removeItem("userData");
         renderNav();
+        document.getElementById('titlebar').querySelector('a').click();
+    
     } catch (error) {
        errorHandler(error)
         sessionStorage.removeItem("userData");
         renderNav();
+        document.getElementById('titlebar').querySelector('a').click();
     }
 }
