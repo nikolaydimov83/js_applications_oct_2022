@@ -96,6 +96,7 @@ return JSON.parse(sessionStorage.getItem('userData'))._id
     
        
     } catch (error) {
+        ctx.renderNonFormError(error)
         console.log(error)
     }
     

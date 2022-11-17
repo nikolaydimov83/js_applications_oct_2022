@@ -1,5 +1,6 @@
 import { render } from '../node_modules/lit-html/lit-html.js';
 import page from '../node_modules/page/page.mjs';
+import { parseQueryString } from './data/utils.js';
 import { countTeamMembers, showBrowse } from './views/browse.js';
 import { showBrowseMyTeams } from './views/browseMyTeams.js';
 import { showCreate } from './views/create.js';
@@ -29,6 +30,7 @@ next();
 }
 
 page(decorateCtx)
+page(parseQueryString)
 
 page(`/register`,showRegister);
 page('/login',showLogin);

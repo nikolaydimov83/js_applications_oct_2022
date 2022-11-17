@@ -5,7 +5,9 @@ let myId=()=>{
     }
     
 }
+let size=1
 let endPoints={
+
     token:()=>{
         if(JSON.parse(sessionStorage.getItem('userData'))){
             return JSON.parse(sessionStorage.getItem('userData')).accessToken
@@ -18,10 +20,12 @@ let endPoints={
         }
         
     },
+    size: 'data/teams?count',
     register:`users/register`,
     login:`users/login`,
     logout:'users/logout',
     browse:`data/teams`,
+    paginationQuery:(currentPage)=>`?offset=${(currentPage-1)*size}&pageSize=${size}`,
     members:`data/members?where=status%3D%22member%22`,
     memberStatus:`data/members`,
     createTeam:`data/teams`,
