@@ -2,11 +2,14 @@
 import { logout } from "./api/users.js";
 import { page,render } from "./lib.js";
 import { getUserData } from "./utils.js";
+import { showCreate } from "./views/createView.js";
 import { showCatalog } from "./views/dashboardView.js";
 import { showshoesDetails } from "./views/detailsView.js";
+import { showMemeEdit } from "./views/editView.js";
 import { showHome } from "./views/homeView.js";
 import { showLogin } from "./views/loginView.js";
 import { showRegister } from "./views/registerView.js";
+import { showsearch } from "./views/searchView.js";
 
 let main=document.querySelector('main');
 let user=document.querySelector('.user');
@@ -19,12 +22,13 @@ renderNav();
 page(decorateCtx);
 page('/dashboard',showCatalog);
 page('/dashboard/:shoesId',showshoesDetails);
-page('/create',()=>console.log('Add pair'));
+page('/create',showCreate);
 /*page('/profile',showMyProfile);*/
 page('/login',showLogin);
 page('/register',showRegister);
 page('/',showHome);
-/*page('/edit/:memeId',showMemeEdit);*/
+page('/edit/:shoesId',showMemeEdit);
+page('/search',showsearch);
 page.start();
 
 function decorateCtx(ctx,next){

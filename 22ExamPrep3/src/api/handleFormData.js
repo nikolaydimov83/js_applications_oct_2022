@@ -1,7 +1,7 @@
 
 const allowedTypes={
     "username":'make',
-    "model":'make',
+    "model":'string',
     'title':'string',
     'description':'string',
     'imageUrl':'string',
@@ -14,6 +14,11 @@ const allowedTypes={
     'name':'name',
     'logoUrl':'logoUrl',
     'gender':'string',
+    'brand':'string',
+    "release":'string',
+    "designer":"string",
+    "value":'string',
+    "search":"string"
     
 }
 export function loadFormData(form){
